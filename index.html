@@ -2,37 +2,37 @@
     <!-- 
     code comes from : https://www.youtube.com/watch?v=xGmXxpIj6vs&list=LLPaOU0KRr4rIGa73IIp1OWA&index=2&t=0s
     same doc about html canvas : https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
-    --!>
+    -->
     <head>
         <meta charset='utf-8'/>
         <title>snakeJs</title>
     </head>
     <body>
-    <canvas id="playground" height="400px" width="400px"></canvas>
-
+    <canvas id="playground" width="400" height="400"></canvas>
+    <p id="score"> Score: 0</p>
     <script type="text/javascript">
 
     window.onload=function(){
         pg = document.getElementById("playground");
-
-    
         ctx = pg.getContext('2d');
         document.addEventListener("keydown", keyPush);
+        scoreCont = document.getElementById("score");
         
         // setting the frame rate of the game
         // because snake like game goes on low frame rate. We call the game function 15 times a second
         setInterval(game, 1000/15);
     }
 
+    score = 1;
+    unit=20;
     // init the snake's tail that increase each time we step in an apple
     trail=[];
     tail=5;
-
     // init the player position, why 10 ? because we are starting on the middle of the canvas, see the doc's link below to understand
-    px=py=10;
+    px=py=Math.floor(document.getElementById('playground').width / unit / 2);
 
     // init grid size and tile countable
-    gs=tc=20;
+    gs=tc=unit;
 
     //init apple position
     ax=ay=15
@@ -77,8 +77,13 @@
             py=0;
         }
 
-        ctx.fillStyle="black";
-        ctx.fillRect(0,0,pg.width, pg.height);
+        // draw the grid
+        for(var i = 0; i<pg.width;i+=unit){
+            for(var j=0;j<pg.height;j+=unit){
+                ctx.fillStyle="black"
+                ctx.fillRect(i,j,unit-2,unit-2);
+            }
+        }
 
         ctx.fillStyle="lime";
         for(var i=0; i<trail.length; i++){
@@ -87,20 +92,24 @@
             // it's game over when the snake touches a part of him self
             //  so if there's a trail's value that is the same as the player position it means game over
             if(trail[i].x==px && trail[i].y==py){
+                score=0;
+                scoreCont.innerHTML = "Score: " + score
                 tail=5;
             }
         }
 
-            // push an js object into trail and then idk what the while does
+        // push an js object into trail and then idk what the while does
         trail.push({x:px, y:py});
         while(trail.length>tail){
             trail.shift();
         }
 
-            // when the player steps into an apple we increase the snake tail
-            // and make a new apple in a random position
+        // when the player steps into an apple we increase the snake tail
+        // and make a new apple in a random position
         if(ax==px && ay==py){
             tail++;
+            score++;
+            scoreCont.innerHTML="Score: " + score;
             ax=Math.floor(Math.random()*tc);
             ay=Math.floor(Math.random()*tc);
         }
@@ -108,9 +117,7 @@
         
         ctx.fillStyle="red";
         ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
-
     }
-
     </script>
     </body>
 </html>
