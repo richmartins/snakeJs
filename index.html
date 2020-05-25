@@ -4,18 +4,40 @@
     same doc about html canvas : https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
     -->
     <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset='utf-8'/>
         <title>snakeJs</title>
     </head>
     <body>
-    <canvas id="playground" width="500" height="500"></canvas>
+    <div style="display: flex;justify-content: center;">
+        <canvas id="playground" width="300" height="300"></canvas>
+    </div>
     <p id="score"> Score: 0</p>
-    <script type="text/javascript">
+    
+    <div id="mobileControls" style="display:flex; align-items: center; font-size: 4em;justify-content: center;">
+        <div style="display: none;" class="keys" id="left">&larr;</div>
+        <div style="display: flex; flex-direction: column">
+            <div style="display: none;" class="keys" id="up">&uarr;</div>
+            <div style="display: none;" class="keys" id="down">&darr;</div>
+        </div>
+        <div style="display: none;" class="keys" id="right">&rarr;</div>
+    </div>
+<script type="text/javascript">
+
+    window.onresize=function(){
+        responsive();
+    }
 
     window.onload=function(){
+        responsive();
         pg = document.getElementById("playground");
         ctx = pg.getContext('2d');
         document.addEventListener("keydown", keyPush);
+        document.getElementById('up').addEventListener("touchend", mobileControls);
+        document.getElementById('down').addEventListener("touchend", mobileControls);
+        document.getElementById('left').addEventListener("touchend", mobileControls);
+        document.getElementById('right').addEventListener("touchend", mobileControls);
         scoreCont = document.getElementById("score");
         
         // setting the frame rate of the game
@@ -25,19 +47,39 @@
 
     score = 1;
     unit=gs=20;
-	tc=document.getElementById('playground').width / unit
+	tc=document.getElementById('playground').width / unit;
 	
     // init the snake's tail that increase each time we step in an apple
     trail=[];
     tail=5;
-    // init the player position, why 10 ? because we are starting on the middle of the canvas, see the doc's link below to understand
+    
     px=py=Math.floor(tc / 2);
 
     //init apple position
-    ax=ay=15
+    ax=ay= Math.floor(Math.random() * tc)
 
     // init x's axe volecity and the y's velocity
     xv=yv=0;
+
+    function mobileControls(event){
+        var keyCode;
+        switch(event.srcElement.id){
+            case 'left':
+                keyCode = 37;
+                break;
+            case 'up':
+                keyCode = 38;
+                break;
+            case 'right':
+                keyCode = 39;
+                break;
+            case 'down':
+                keyCode = 40;
+                break;
+        }
+        var evt = new KeyboardEvent('keydown', { 'keyCode': keyCode, 'which': keyCode });
+        document.dispatchEvent(evt);
+    }
 
     function keyPush(){
         // handling key controls in this case the arrows
@@ -116,6 +158,18 @@
         
         ctx.fillStyle="red";
         ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+    }
+
+    function responsive(){
+        keys = document.getElementsByClassName("keys");
+
+        for (let index = 0; index < keys.length; index++) {
+            if (window.innerWidth<800){
+                keys[index].style.display = "block"
+            } else {
+                keys[index].style.display = "none"
+            }
+        }
     }
     </script>
     </body>
