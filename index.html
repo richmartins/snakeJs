@@ -1,0 +1,118 @@
+<html>
+    <!-- 
+    code comes from : https://www.youtube.com/watch?v=xGmXxpIj6vs&list=LLPaOU0KRr4rIGa73IIp1OWA&index=2&t=0s
+    same doc about html canvas : https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+    --!>
+    <head>
+        <meta charset='utf-8'/>
+        <title>snakeJs</title>
+    </head>
+    <body>
+    <canvas id="playground" height="400px" width="400px"></canvas>
+
+    <script type="text/javascript">
+
+    window.onload=function(){
+        pg = document.getElementById("playground");
+
+    
+        ctx = pg.getContext('2d');
+        document.addEventListener("keydown", keyPush);
+        
+        // setting the frame rate of the game
+        // because snake like game goes on low frame rate. We call the game function 15 times a second
+        setInterval(game, 1000/15);
+    }
+
+    // init the snake's tail that increase each time we step in an apple
+    trail=[];
+    tail=5;
+
+    // init the player position, why 10 ? because we are starting on the middle of the canvas, see the doc's link below to understand
+    px=py=10;
+
+    // init grid size and tile countable
+    gs=tc=20;
+
+    //init apple position
+    ax=ay=15
+
+    // init x's axe volecity and the y's velocity
+    xv=yv=0;
+
+    function keyPush(){
+        // handling key controls in this case the arrows
+        switch(event.keyCode){
+            case 37: // 37 and the others cases is the keycode when we press it
+                xv=-1;yv=0; // changing the direction of the velocity will obviously change the direction where the snake goes
+                break;
+             case 38:
+                xv=0;yv=-1;
+                break;
+            case 39:
+                xv=1;yv=0;
+                break;
+            case 40:
+                xv=0;yv=1;
+                break;
+        }
+    }
+
+    function game(event){
+        // player x and player y position depends on the x's and y's velocity
+        px+=xv;
+        py+=yv;
+        // if the player's position is less than 0 it means that the player is out of the canvas
+        // so we set the player's position at this and of the canvas so the he appears on the other side
+        if (px<0){
+            px=tc-1;
+        }
+        if(px>tc-1){
+            px=0;
+        }
+        if(py<0){
+            py=tc-1;
+        }
+        if(py>tc-1){
+            py=0;
+        }
+
+        ctx.fillStyle="black";
+        ctx.fillRect(0,0,pg.width, pg.height);
+
+        ctx.fillStyle="lime";
+        for(var i=0; i<trail.length; i++){
+            ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+            
+            // it's game over when the snake touches a part of him self
+            //  so if there's a trail's value that is the same as the player position it means game over
+            if(trail[i].x==px && trail[i].y==py){
+                tail=5;
+            }
+        }
+
+            // push an js object into trail and then idk what the while does
+        trail.push({x:px, y:py});
+        while(trail.length>tail){
+            trail.shift();
+        }
+
+            // when the player steps into an apple we increase the snake tail
+            // and make a new apple in a random position
+        if(ax==px && ay==py){
+            tail++;
+            ax=Math.floor(Math.random()*tc);
+            ay=Math.floor(Math.random()*tc);
+        }
+        
+        
+        ctx.fillStyle="red";
+        ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+
+    }
+
+    </script>
+    </body>
+</html>
+
+
