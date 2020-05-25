@@ -33,9 +33,12 @@
         responsive();
         pg = document.getElementById("playground");
         ctx = pg.getContext('2d');
-        document.addEventListener('gesturestart', function (e) {
-            e.preventDefault();
-        });
+        document.addEventListener('touchmove', function (event) {
+            event = event.originalEvent || event;
+            if (event.scale > 1) {
+                event.preventDefault();
+            }
+        }, false);
         document.addEventListener("keydown", keyPush);
         document.getElementById('up').addEventListener("touchend", mobileControls);
         document.getElementById('down').addEventListener("touchend", mobileControls);
