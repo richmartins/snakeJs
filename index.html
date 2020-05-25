@@ -8,7 +8,7 @@
         <title>snakeJs</title>
     </head>
     <body>
-    <canvas id="playground" width="400" height="400"></canvas>
+    <canvas id="playground" width="500" height="500"></canvas>
     <p id="score"> Score: 0</p>
     <script type="text/javascript">
 
@@ -24,15 +24,14 @@
     }
 
     score = 1;
-    unit=20;
+    unit=gs=20;
+	tc=document.getElementById('playground').width / unit
+	
     // init the snake's tail that increase each time we step in an apple
     trail=[];
     tail=5;
     // init the player position, why 10 ? because we are starting on the middle of the canvas, see the doc's link below to understand
-    px=py=Math.floor(document.getElementById('playground').width / unit / 2);
-
-    // init grid size and tile countable
-    gs=tc=unit;
+    px=py=Math.floor(tc / 2);
 
     //init apple position
     ax=ay=15
