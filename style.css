@@ -1,44 +1,112 @@
 body {
-	margin: 0 auto;
-	font-family: 'Press Start 2P', cursive;
+    margin: 0 auto;
+    font-family: 'Press Start 2P', cursive;
 }
 
 #score {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	font-size: 32px;
-	text-align: center;
-	font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
 }
 
 #gameboard {
-	width: 100%;
-	display: flex;
-	justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 #playground {
-	width: 40%;
+    width: 40%;
 }
 
 #mobileControls {
-	display: flex; 
-	align-items: center; 
-	font-size: 4em;
-	justify-content: center;
+    display: flex; 
+    align-items: center; 
+    font-size: 4em;
+    justify-content: center;
 }
 
 #up-down {
-	display: flex; 
-	flex-direction: column	
+    display: flex; 
+    flex-direction: column	
 }
-	
+    
 .keys {
-	display: none;
+    display: none;
 }
 
 @media screen and (max-width: 800px) {
-	#playground {
-		width: 100%;
-	}
+    #playground {
+        width: 100%;
+    }
+}
+
+
+/**** MODAL ****/
+
+/* The Modal (background) */
+.modal {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.modal-content > ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+.modal-content > ul > li {
+    margin: .7em 1em;
+}
+
+.modal-content>ul>li:hover {
+    color: #666;
+    cursor: pointer;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
