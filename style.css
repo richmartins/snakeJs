@@ -1,0 +1,44 @@
+body {
+	margin: 0 auto;
+	font-family: 'Press Start 2P', cursive;
+}
+
+#score {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 32px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#gameboard {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#playground {
+	width: 40%;
+}
+
+#mobileControls {
+	display: flex; 
+	align-items: center; 
+	font-size: 4em;
+	justify-content: center;
+}
+
+#up-down {
+	display: flex; 
+	flex-direction: column	
+}
+	
+.keys {
+	display: none;
+}
+
+@media screen and (max-width: 800px) {
+	#playground {
+		width: 100%;
+	}
+}
