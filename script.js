@@ -19,8 +19,7 @@ ax=ay=Math.floor(Math.random() * tc)
 xv=yv=0;
 
 gui = document.getElementById("gui");
-var t1; 
-var t2; 
+t=null; 
 
 // modal
 gui.onclick = function () {
@@ -34,7 +33,7 @@ gui.onclick = function () {
 
     // setting the frame rate of the game
     // because snake like game goes on low frame rate. We call the game function 15 times a second
-    t1 = window.setInterval(game, 1000/speed);
+    t = window.setInterval(game, 1000/speed);
 }
 
 window.onresize=function(){
@@ -57,8 +56,7 @@ window.onload=function(){
 }
 
 	function stop() {
-		window.clearInterval(t1);
-		window.clearInterval(t2);
+		window.clearInterval(t);
 		gui.style.display = "block";
         score=0;
         scoreCont.innerHTML = "Score: " + score
@@ -148,7 +146,7 @@ window.onload=function(){
             //  so if there's a trail's value that is the same as the player position it means game over
             if(trail[i].x==px && trail[i].y==py && score > 0){
 				stop();
-				break;
+				return false;
             }
         }
 
@@ -161,7 +159,6 @@ window.onload=function(){
         // when the player steps into an apple we increase the snake tail
         // and make a new apple in a random position
         if(ax==px && ay==py){
-            t2 = window.setInterval(game, 1000/(speed *= 0.5))
             tail++;
             score++;
             scoreCont.innerHTML="Score: " + score;
