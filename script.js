@@ -4,9 +4,9 @@ window.onresize=function(){
 
     window.onload=function(){
         responsive();
-		
-		pg = document.getElementById("playground");
-		pg.height = pg.width
+
+        pg = document.getElementById("playground");
+        pg.height = pg.width
 
         ctx = pg.getContext('2d');
         document.addEventListener('touchmove', function (event) {
@@ -21,13 +21,13 @@ window.onresize=function(){
         document.getElementById('left').addEventListener("touchend", mobileControls);
         document.getElementById('right').addEventListener("touchend", mobileControls);
         scoreCont = document.getElementById("score");
-        
+
         // setting the frame rate of the game
         // because snake like game goes on low frame rate. We call the game function 15 times a second
-        setInterval(game, 1000/15);
+        setInterval(game, 1000/speed);
     }
-
     score = 1;
+    speed = 15;
     unit=gs=20;
 	tc=document.getElementById('playground').width / unit;
 	
@@ -38,7 +38,7 @@ window.onresize=function(){
     px=py=Math.floor(tc / 2);
 
     //init apple position
-    ax=ay= Math.floor(Math.random() * tc)
+    ax=ay=Math.floor(Math.random() * tc)
 
     // init x's axe volecity and the y's velocity
     xv=yv=0;
@@ -139,6 +139,7 @@ window.onresize=function(){
         // when the player steps into an apple we increase the snake tail
         // and make a new apple in a random position
         if(ax==px && ay==py){
+            setInterval(game, 1000/(speed += 1))
             tail++;
             score++;
             scoreCont.innerHTML="Score: " + score;
