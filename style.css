@@ -43,6 +43,14 @@ body {
     }
 }
 
+#gui-gameover {
+	display: none;
+}
+
+#gui-gameover p {
+	text-align: center;
+}
+
 
 /**** MODAL ****/
 

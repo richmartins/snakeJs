@@ -18,12 +18,37 @@ ax=ay=Math.floor(Math.random() * tc)
 // init x's axe volecity and the y's velocity
 xv=yv=0;
 
-gui = document.getElementById("gui");
+guistart = document.getElementById("gui-start");
+guigameover = document.getElementById("gui-gameover");
+
+startgame = document.getElementById("startgame");
+restartgame = document.getElementById("restartgame");
+
+menu = document.getElementById("menu");
+
 t=null; 
 
 // modal
-gui.onclick = function () {
-    this.style.display = "none";
+startgame.onclick = function () {
+    start();
+}
+
+restartgame.onclick = function () {
+    start();
+}
+
+menu.onclick = function () {
+    guistart.style.display = "block";
+	guigameover.style.display = "none";
+}
+
+window.onresize=function(){
+    responsive();
+}
+
+function start () {
+	guistart.style.display = "none";
+	guigameover.style.display = "none";
     responsive();
 
     pg = document.getElementById("playground");
@@ -49,18 +74,13 @@ gui.onclick = function () {
     t = window.setInterval(game, 1000/speed);
 }
 
-window.onresize=function(){
-    responsive();
-}
-
 function stop() {
-    gui.style.display = "block";
+    guigameover.style.display = "block";
     // console.log(ctx);
     ctx.clearRect(0,0, pg.width, pg.height);
     window.clearInterval(t);
     xv = yv = 0;
     px = py = Math.floor(tc / 2);
-    alert('game over, here is your score  : ' + score);
     score=0;
     scoreCont.innerHTML = "Score: " + score
     tail=5;
