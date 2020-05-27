@@ -39,7 +39,7 @@ restartgame.onclick = function () {
 
 menu.onclick = function () {
     guistart.style.display = "block";
-	guigameover.style.display = "none";
+    guigameover.style.display = "none";
 }
 
 window.onresize=function(){
@@ -47,9 +47,14 @@ window.onresize=function(){
 }
 
 function start () {
-	guistart.style.display = "none";
-	guigameover.style.display = "none";
+
+    guistart.style.display = "none";
+    guigameover.style.display = "none";
     responsive();
+    xv = yv = 0;
+    px = py = Math.floor(tc / 2);
+    score = 0;
+    tail = 5;
 
     pg = document.getElementById("playground");
     pg.height = pg.width
@@ -68,6 +73,8 @@ function start () {
     document.getElementById('left').addEventListener("touchend", mobileControls);
     document.getElementById('right').addEventListener("touchend", mobileControls);
     scoreCont = document.getElementById("score");
+    scoreCont.innerHTML = "Score: " + score
+
 
     // setting the frame rate of the game
     // because snake like game goes on low frame rate. We call the game function 15 times a second
@@ -75,15 +82,11 @@ function start () {
 }
 
 function stop() {
-    guigameover.style.display = "block";
-    // console.log(ctx);
-    ctx.clearRect(0,0, pg.width, pg.height);
     window.clearInterval(t);
-    xv = yv = 0;
-    px = py = Math.floor(tc / 2);
-    score=0;
-    scoreCont.innerHTML = "Score: " + score
-    tail=5;
+    guigameover.style.display = "block";
+    document.getElementById('gameover').innerHTML = "Game over<br/><br/>score : " + score;
+    ctx.clearRect(0,0, pg.width, pg.height);
+
 }
 
 function mobileControls(event){
