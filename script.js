@@ -26,7 +26,7 @@ restartgame = document.getElementById("restartgame");
 
 menu = document.getElementById("menu");
 
-t=null; 
+t=null;
 
 // modal
 startgame.onclick = function () {
@@ -47,7 +47,6 @@ window.onresize=function(){
 }
 
 function start () {
-
     guistart.style.display = "none";
     guigameover.style.display = "none";
     responsive();
@@ -167,7 +166,6 @@ function game(event){
     ctx.fillStyle="lime";
     for(var i=0; i<trail.length; i++){
         ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
-        
         // it's game over when the snake touches a part of him self
         //  so if there's a trail's value that is the same as the player position it means game over
         if(trail[i].x==px && trail[i].y==py && score > 0){
@@ -191,8 +189,8 @@ function game(event){
         ax=Math.floor(Math.random()*tc);
         ay=Math.floor(Math.random()*tc);
     }
-    
-    
+
+
     ctx.fillStyle="red";
     ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
 }
